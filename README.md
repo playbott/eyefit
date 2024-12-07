@@ -14,7 +14,7 @@ day.
 * [x] **Clock Movements**: Mimics the movement of clock hands for comprehensive eye movement.
 * [x] **Drawing Circles**: Encourages smooth rotational movements.
 * [x] **Diagonal Patterns**: Enhances focus and flexibility in diagonal directions.
-* [ ] **Rectangle Tracing**: Improves horizontal and vertical tracking.
+* [x] **Rectangle Tracing**: Improves horizontal and vertical tracking.
 * [ ] **Figure Eight**: Combines fluid movements to strengthen focus and coordination.
 * [ ] **Letters**: Simulates letter shapes for improving precision in eye movements.
 

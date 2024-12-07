@@ -6,6 +6,7 @@ import 'exercises/draw_circle.dart';
 import 'exercises/look_up_down.dart';
 import 'exercises/pendulum.dart';
 import 'exercise_screen.dart';
+import 'exercises/rectangle.dart';
 
 
 final exercises = [
@@ -29,11 +30,11 @@ final exercises = [
     description: 'Следите за движением по диагоналям.',
     widget: Diagonals(),
   ),
-/*  const Exercise(
+  const Exercise(
     title: 'Рисуем прямоугольник',
     description: 'Следите за движением по периметру прямоугольника.',
     widget: Rectangle(),
-  ),*/
+  ),
 ];
 
 class ExerciseMenu extends StatelessWidget {
