@@ -18,11 +18,13 @@ class ExerciseScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        color: backgroundColor,
-        child: Center(
-          child: content,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          color: backgroundColor,
+          child: Center(
+            child: content,
+          ),
         ),
       ),
     );
