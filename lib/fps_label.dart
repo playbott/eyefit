@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'const.dart';
+import 'data/local/shared_refs.dart';
+
 class FpsLabel extends StatefulWidget {
   const FpsLabel({super.key, required this.child});
 
@@ -12,9 +15,11 @@ class FpsLabel extends StatefulWidget {
 
 class FpsLabelState extends State<FpsLabel> {
   int _frameCount = 0;
-  int _lastTimeStamp = 0;
+  int _lastTimeStamp = DateTime.now().millisecondsSinceEpoch;
   final StreamController<double> _fpsStreamController = StreamController();
 
+  double newX = 0.0;
+  double newY = 0.0;
   Offset _position = const Offset(10, 100);
 
   @override
@@ -26,8 +31,11 @@ class FpsLabelState extends State<FpsLabel> {
   @override
   void initState() {
     super.initState();
-    _frameCount = 0;
-    _lastTimeStamp = DateTime.now().millisecondsSinceEpoch;
+    final fpsPosX =
+        Prefs.getStringList(PrefsKeys.fpsLabelPosition)?[0] ?? '0.0';
+    final fpsPosY =
+        Prefs.getStringList(PrefsKeys.fpsLabelPosition)?[1] ?? '0.0';
+    _position = Offset(double.parse(fpsPosX), double.parse(fpsPosY));
 
     Future.delayed(const Duration(milliseconds: 100), () => _calculateFps());
   }
@@ -55,6 +63,16 @@ class FpsLabelState extends State<FpsLabel> {
     final screenSize = MediaQuery.of(context).size;
     const widgetSize = Size(100, 50);
 
+    if (newX > screenSize.width) {
+      newX = newX.clamp(0, screenSize.width - widgetSize.width);
+      _position = Offset(newX, newY);
+    }
+
+    if (newY > screenSize.height) {
+      newY = newY.clamp(0, screenSize.height - widgetSize.height);
+      _position = Offset(newX, newY);
+    }
+
     return Stack(
       alignment: Alignment.topLeft,
       children: [
@@ -63,10 +81,16 @@ class FpsLabelState extends State<FpsLabel> {
           left: _position.dx,
           top: _position.dy,
           child: GestureDetector(
+            onPanEnd: (details) {
+              Prefs.setStringList(PrefsKeys.fpsLabelPosition, [
+                _position.dx.toString(),
+                _position.dy.toString(),
+              ]);
+            },
             onPanUpdate: (details) {
               setState(() {
-                double newX = _position.dx + details.delta.dx;
-                double newY = _position.dy + details.delta.dy;
+                newX = _position.dx + details.delta.dx;
+                newY = _position.dy + details.delta.dy;
 
                 newX = newX.clamp(0, screenSize.width - widgetSize.width);
                 newY = newY.clamp(0, screenSize.height - widgetSize.height);
@@ -86,16 +110,13 @@ class FpsLabelState extends State<FpsLabel> {
                   style: ThemeData.light()
                       .textTheme
                       .bodyMedium!
-                      .copyWith(color: Colors.white),
+                      .copyWith(color: Colors.white, fontFamily: 'monospace'),
                   child: StreamBuilder<double>(
                       stream: _fpsStreamController.stream,
                       builder: (context, snapshot) {
                         final value = snapshot.data ?? 0.0;
                         return Text(
-                          'FPS: ${value.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontFamily: 'monospace',
-                          ),
+                          'FPS: ${value.toStringAsFixed(2)}'.padRight(11),
                         );
                       }),
                 ),
