@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'entities/exercise.dart';
 import 'exercises/diagonals.dart';
 import 'exercises/draw_circle.dart';
+import 'exercises/figure_eight.dart';
 import 'exercises/look_up_down.dart';
 import 'exercises/pendulum.dart';
 import 'exercise_screen.dart';
@@ -33,6 +34,11 @@ final exercises = [
     title: 'Рисуем прямоугольник',
     description: 'Следите за движением по периметру прямоугольника.',
     widget: Rectangle(),
+  ),
+  const Exercise(
+    title: 'Восьмерка',
+    description: 'Комбинируйте разные движения для увеличения фокуса и координации.',
+    widget: FigureEightAnimation(),
   ),
 ];
 
