@@ -15,7 +15,7 @@ day.
 * [x] **Drawing Circles**: Encourages smooth rotational movements.
 * [x] **Diagonal Patterns**: Enhances focus and flexibility in diagonal directions.
 * [x] **Rectangle Tracing**: Improves horizontal and vertical tracking.
-* [ ] **Figure Eight**: Combines fluid movements to strengthen focus and coordination.
+* [x] **Figure Eight**: Combines fluid movements to strengthen focus and coordination.
 * [ ] **Letters**: Simulates letter shapes for improving precision in eye movements.
 
 **Options menu**:
